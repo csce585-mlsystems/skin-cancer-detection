@@ -28,4 +28,29 @@ We plan to compare our results against other submissions in the competition that
 Nicholas Kurtansky, Veronica Rotemberg, Maura Gillis, Kivanc Kose, Walter Reade, Ashley Chow. (2024). ISIC 2024 - Skin Cancer Detection with 3D-TBP. Kaggle. https://kaggle.com/competitions/isic-2024-challenge
 Gessert, N., Nielsen, M., Shaikh, M., Werner, R., & Schlaefer, A. (2020). Skin lesion classification using ensembles of multi-resolution EfficientNets with metadata. MethodsX, 7, 100864. https://doi.org/10.1016/j.mex.2020.100864
 
-
+## Evaluation Experiment
+### Objective
+The goal is to evaluate the effectiveness of EfficientNet-based models for skin cancer detection on lower-quality, non-dermoscopic images from the ISIC SLICE-3D dataset, while maintaining a sensitivity threshold of at least 80% for clinical relevance.
+### Independent Variable
+- Model Architecture
+- Ensemble Approach
+- Training Data Size
+- Image Preprocessing
+### Dependent Variable
+- Area under ROC Curve and above 80% TPR
+- True Positive Rate
+- False Positive Rate
+- Accuracy
+### Control Variables
+- Hardware Setup
+- Optimizer and Learning Rate
+### Experiment Design
+-	Start by training a baseline EfficientNet model on the entire dataset with default preprocessing. Record the ROC curve, sensitivity, and AUC.
+-	Test the same model with different image resolutions to evaluate how image quality affects performance.
+-	Train larger versions of EfficientNet and ensemble models to compare performance improvements.
+-	Apply various image preprocessing techniques to the dataset and test their impact on model.
+-	Measure how the model performs on smaller subsets of the dataset to evaluate how much training data is necessary for reliable performance.
+### Expected Outcome
+The sensitivity of EfficientNet-based models for real-world, low-quality images.
+The effect of model size and training data on achieving a clinical-grade sensitivity threshold.
+The trade-off between sensitivity and false positives, using ROC curve analysis.
