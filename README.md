@@ -51,6 +51,7 @@ The goal is to evaluate the effectiveness of EfficientNet-based models for skin 
 -	Apply various image preprocessing techniques to the dataset and test their impact on model.
 -	Measure how the model performs on smaller subsets of the dataset to evaluate how much training data is necessary for reliable performance.
 ### Expected Outcome
-The sensitivity of EfficientNet-based models for real-world, low-quality images.
-The effect of model size and training data on achieving a clinical-grade sensitivity threshold.
-The trade-off between sensitivity and false positives, using ROC curve analysis.
+Insights into:
+- The sensitivity of EfficientNet-based models for real-world, low-quality images.
+- The effect of model size and training data on achieving a clinical-grade sensitivity threshold.
+- The trade-off between sensitivity and false positives, using ROC curve analysis.
