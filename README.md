@@ -1,13 +1,14 @@
 # Steps to Set Up and Run the ISIC Skin Cancer Detection Code
 
-1. Update mdlParams['pathBase'] in example.py
+1. Clone the repository
+2. Update mdlParams['pathBase'] in example.py
     - Navigate to the file: .\isic2019-master\pc_cfgs\example.py
     - Open it in a text editor.
     - Find the line where mdlParams['pathBase'] is defined.
     - Replace it with your current working directory, for example: mdlParams['pathBase'] = 'CUR_WORKING_DIRECTORY'
     - Save the changes and close the file.
 
-2. Prepare Data for ISIC 2019
+3. Prepare Data for ISIC 2019
     - Navigate to the directory: .\isic2019-master\data\isic\2019
     - Ensure the following files and folders are set up:
         -Indices pickle file: This file should already be in the folder.
