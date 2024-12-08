@@ -11,17 +11,17 @@
 3. Prepare Data for ISIC 2019
     - Navigate to the directory: .\isic2019-master\data\isic\2019
     - Ensure the following files and folders are set up:
-        -Indices pickle file: This file should already be in the folder.
-        -Images: Add the required images to the image folder.
-        -Labels CSV: Make sure the label CSV file is inside the image folder.
+        - Indices pickle file: This file should already be in the folder.
+        - Images: Add the required images to the image folder. You can download the images from https://challenge.isic-archive.com/data/#2019.
+        - Labels CSV: Make sure the label CSV file is inside the image folder.
 
 4. Prepare Data for ISIC 2024
     - Navigate to the directory: .\isic2019-master\data\isic\2024
     - Confirm the following files and folders are in place:
         - Indices pickle file: This file should already be in the folder.
-        - Images: Add the required images to the image folder.
+        - Images: Add the required images to the image folder. You can download the images from https://www.kaggle.com/competitions/isic-2024-challenge/data.
         - Labels CSV: Ensure the label CSV file is in the image folder.
-        - Pretrained Model: Place the best ISIC 2019 model in the pretrained folder.
+        - Pretrained Model: Place the best ISIC 2019 model in the pretrained folder. (This model will be generated in step 3)
 
 6. Run the Models
    - Open a terminal or command prompt.
