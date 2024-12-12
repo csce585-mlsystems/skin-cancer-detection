@@ -1,57 +1,38 @@
-# Skin Cancer Detection using ISIC SLICE-3D Data
+# Skin Cancer Detection
 
-## Proposal
-### Presentation Comments Comments
-- How did we come with the sensitivity threshold of 80% TPR?
-- Where is the data in this dataset coming from? What kind of quality images are being received? 
-- What is the system component of our project? 
-- How does the ROC curve minimize misdiagnosis in the negative cases?
+The purpose of this project is to develop a skin cancer detection system aimed at overcoming accessibility challenges in underserved regions. Utilizing International Skin Imaging Collaboration’s SLICE-3D dataset, which consists of smartphone-quality images, the system employs EfficientNet architectures to classify skin lesions as malignant or benign. We compare models trained on high-quality 2019 ISIC data, smartphone-quality 2024 ISIC data, and a fine-tuned transfer learning model to assess their performance. Our results demonstrate the promise of transfer learning in enhancing diagnostic accuracy and specificity, while addressing challenges related to class imbalance and data variability.
 
-These questions are addressed in the proposal.
+## Steps to Set Up and Run the ISIC Skin Cancer Detection Code
 
-### Problem
-Skin cancer, including melanoma, basal cell carcinoma, and squamous cell carcinoma, poses significant health risks if not detected early. Many populations, however, lack access to specialized dermatologic care, or for whatever reason, some are hesitant to seek out specialized healthcare. While dermoscopy-based AI algorithms have advanced skin cancer diagnosis, these systems often require high-quality images that are typically available only in specialized clinics. Thus, challenges often lie in developing models that can effectively analyze lower-quality images, such as those taken with cell phones. Our project will tackle the ISIC SLICE-3D dataset to explore whether we can achieve effective skin cancer detection using these more accessible images.
-### Data
-This project will utilize the ISIC SLICE-3D dataset, which includes cropped non-dermoscopic images of lesions obtained from 3D Total Body Photography (TBP). This dataset contains lesions from a variety of patients seen between the years 2015 and 2024 across nine institutions and three continents. The dataset also includes additional labels such as classifications (targets), patient information (age, sex), lesion details (location on the body, maximum diameter), and other attributes (image source, precise diagnosis).
-### Methods
+1. Clone the repository
+2. Update `mdlParams['pathBase']` in `example.py`
+    - Navigate to the file: `.\isic2019-master\pc_cfgs\example.py`
+    - Open it in a text editor.
+    - Find the line where `mdlParams['pathBase']` is defined.
+    - Replace it with your current working directory, for example: `mdlParams['pathBase'] = 'CUR_WORKING_DIRECTORY'`
+    - Save the changes and close the file.
 
-In this approach, we will apply the method from the “Skin lesion classification using ensembles of multi-resolution EfficientNets with metadata” paper. We will begin with collecting and preprocessing skin lesion images along with relevant patient data. We will train various EfficientNet models individually and then develop ensembles of these models to harness their combined predictive power. We will then evaluate our model using the metrics discussed in the next session. 
+3. Prepare Data for ISIC 2019
+    - Navigate to the directory: `.\isic2019-master\data\isic\2019`
+    - Ensure the following files and folders are set up:
+        - Indices pickle file: This file should already be in the folder.
+        - Images: Add the required images to the image folder. You can download the images from https://challenge.isic-archive.com/data/#2019.
+        - Labels CSV: Make sure the label CSV file is inside the image folder.
 
-This paper studied a dataset of dermatoscopic images taken using equipment that is typically provided by a healthcare provider. Our dataset uses images of a similar quality to those produced by a smartphone camera. We want a way for users to be able to take a photo on their phone and get a diagnosis without having to seek out a healthcare provider. To achieve this, we will use cloud resources to do the computation. The user data will be stored with the ability to integrate it into the training data to improve the model. 
-### Metric
-In clinical practices, especially in systems for cancer detection, high sensitivity is crucial. Therefore, our focus is not only achieving a high performance with our model but ensuring it meets a sensitivity threshold. Our primary evaluation metric, as defined by the ISIC 2024 competition, is the area under the ROC curve, with the additional condition of considering only the area above an 80% true positive rate. 
+4. Prepare Data for ISIC 2024
+    - Navigate to the directory: `.\isic2019-master\data\isic\2024`
+    - Confirm the following files and folders are in place:
+        - Indices pickle file: This file should already be in the folder.
+        - Images: Add the required images to the image folder. You can download the images from https://www.kaggle.com/competitions/isic-2024-challenge/data.
+        - Labels CSV: Ensure the label CSV file is in the image folder.
+        - Pretrained Model: Place the best ISIC 2019 model in the pretrained folder. (This model will be generated in step 3)
 
-The ROC curve evaluates the model by plotting the true positive rate against the false positive rate. We only have a threshold on the sensitivity because in clinical practice, a high number of false positives can be managed through follow-up procedures such as additional screenings or biopsies. However, a good diagnostic system should still aim to manage the false positive rate reasonably. Therefore in addition to the ISIC 2024 metrics we will measure each component - sensitivity and specificity.
+6. Run the Models
+   - Open a terminal or command prompt.
+   - Navigate to the project root folder: `cd .\isic2019-master`
+   - Use the following commands to execute specific tasks:
+       - Run the ISIC 2019 model: `python train.py example isic2019_effb0_ss gpu0`
+       - Run the ISIC 2024 model: `python train.py example isic2024_effb0_ss gpu0`
+       - Run fine-tuning for ISIC: `python train.py example isic_finetuning_effb0_ss gpu0`
 
-We plan to compare our results against other submissions in the competition that use the same dataset but different approaches, which will help us understand how our solution fares compared to alternative methods. Additionally, we aim to compare our results with those from the research paper we implemented to assess the generalizability of our method across different datasets and conditions.
-### References:
-Nicholas Kurtansky, Veronica Rotemberg, Maura Gillis, Kivanc Kose, Walter Reade, Ashley Chow. (2024). ISIC 2024 - Skin Cancer Detection with 3D-TBP. Kaggle. https://kaggle.com/competitions/isic-2024-challenge
-Gessert, N., Nielsen, M., Shaikh, M., Werner, R., & Schlaefer, A. (2020). Skin lesion classification using ensembles of multi-resolution EfficientNets with metadata. MethodsX, 7, 100864. https://doi.org/10.1016/j.mex.2020.100864
-
-## Evaluation Experiment
-### Objective
-The goal is to evaluate the effectiveness of EfficientNet-based models for skin cancer detection on lower-quality, non-dermoscopic images from the ISIC SLICE-3D dataset, while maintaining a sensitivity threshold of at least 80% for clinical relevance.
-### Independent Variable
-- Model Architecture
-- Ensemble Approach
-- Training Data Size
-- Image Preprocessing
-### Dependent Variable
-- Area under ROC Curve and above 80% TPR
-- True Positive Rate
-- False Positive Rate
-- Accuracy
-### Control Variables
-- Hardware Setup
-- Optimizer and Learning Rate
-### Experiment Design
--	Start by training a baseline EfficientNet model on the entire dataset with default preprocessing. Record the ROC curve, sensitivity, and AUC.
--	Test the same model with different image resolutions to evaluate how image quality affects performance.
--	Train larger versions of EfficientNet and ensemble models to compare performance improvements.
--	Apply various image preprocessing techniques to the dataset and test their impact on model.
--	Measure how the model performs on smaller subsets of the dataset to evaluate how much training data is necessary for reliable performance.
-### Expected Outcome
-Insights into:
-- The sensitivity of EfficientNet-based models for real-world, low-quality images.
-- The effect of model size and training data on achieving a clinical-grade sensitivity threshold.
-- The trade-off between sensitivity and false positives, using ROC curve analysis.
+By following these steps, you'll successfully set up and execute the ISIC Skin Cancer Detection models.
