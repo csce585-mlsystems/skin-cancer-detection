@@ -1,4 +1,8 @@
-# Steps to Set Up and Run the ISIC Skin Cancer Detection Code
+# Skin Cancer Detection
+
+The purpose of this project is to develop a skin cancer detection system aimed at overcoming accessibility challenges in underserved regions. Utilizing International Skin Imaging Collaboration’s SLICE-3D dataset, which consists of smartphone-quality images, the system employs EfficientNet architectures to classify skin lesions as malignant or benign. We compare models trained on high-quality 2019 ISIC data, smartphone-quality 2024 ISIC data, and a fine-tuned transfer learning model to assess their performance. Our results demonstrate the promise of transfer learning in enhancing diagnostic accuracy and specificity, while addressing challenges related to class imbalance and data variability.
+
+## Steps to Set Up and Run the ISIC Skin Cancer Detection Code
 
 1. Clone the repository
 2. Update `mdlParams['pathBase']` in `example.py`
